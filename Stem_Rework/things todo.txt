@@ -1,0 +1,1 @@
+buttons do not need a color value in their constructors

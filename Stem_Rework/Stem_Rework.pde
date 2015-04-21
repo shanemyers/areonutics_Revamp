@@ -1,6 +1,14 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
 import java.util.Map;
 
-
+Minim minim;
+AudioPlayer pl_1;
 
 GSPlay gsplay;
 GSTitle gstitle;
@@ -15,6 +23,9 @@ String audioList[];
 PImage background1;
 PImage background2;
 
+PImage volt;
+PImage resist;
+
 String s;
 String str;
 
@@ -22,14 +33,20 @@ Table table;
 String tab;
 String tab2;
 
-
+float widthHalf;
+float heightHalf;
 
 HashMap<String, Integer> hm = new HashMap<String, Integer>();
 
 void setup()
 {
-  size(900, 900);
-
+  size(1200, 800);
+  rectMode(CENTER);
+  imageMode(CENTER);
+  
+  widthHalf = width / 2;
+  heightHalf = height / 2;
+  
   /*
   hm.put("Ava", 1);
    
@@ -44,8 +61,16 @@ void setup()
    println("Casey is " + val);
    
    */
-
-  background1 = loadImage("Chrysanthemum.jpg");
+  minim = new Minim(this);
+  pl_1 = minim.loadFile("Music1Loopable.mp3");
+  
+  //pl_1.loop();
+  
+  
+  background1 = loadImage("Circuit_Simple_Example.png");
+  
+  volt = loadImage("10 kOhm.png");
+  resist = loadImage("Battery_6_Volt.png");
   background2 = loadImage("Jellyfish.jpg");
 
   SwitchToTitle();
@@ -81,7 +106,7 @@ void draw()
   background(0);
 
   fill(122, 2, 2);
-  text(tab, 400, 40);
+  //text(tab, 400, 40);
   //text(tab2, 600,40);
 
   if (gstitle != null)
