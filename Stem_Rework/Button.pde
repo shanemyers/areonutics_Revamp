@@ -87,7 +87,7 @@ class Button
       
       //fill(0);
       //textSize(20); 
-      //text(text, this.x, this.y + (this.sizeY / 6));
+      text(text, this.x, this.y + (this.sizeY / 6));
     }
     else
     {
@@ -95,7 +95,7 @@ class Button
 
       //fill(255);
       //textSize(20); 
-      //text(text, this.x, this.y + (this.sizeY / 6));
+      text(text, this.x, this.y + (this.sizeY / 6));
     }
     rect(this.x, this.y, this.sizeX, this.sizeY);
     
@@ -124,6 +124,12 @@ class Button
   {
     this.x = mouseX;
     this.y = mouseY;
+  }
+  
+  void DragObject(float x, float y)
+  {
+    this.x = x;
+    this.y = y;
   }
 }
 

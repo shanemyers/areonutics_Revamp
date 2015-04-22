@@ -27,22 +27,40 @@ class GSPlay
   {
     gui.Update();
 
-    for (Button b : btns)
+    if (level_1 == null && level_2 == null)
     {
-      if (b.checkMouseOver() && !Input.mouseDownPrev && Input.mouseDown)
+      for (Button b : btns)
       {
-        switch(b.type)
+        if (b.checkMouseOver() && !Input.mouseDownPrev && Input.mouseDown)
         {
-        case 0:
-          level_1 = new CircuitLevel();
-          break;
+          switch(b.type)
+          {
+          case 0:
+            level_1 = new CircuitLevel();
+            break;
 
-        case 1:
-          level_2 = new MaterialLevel();
-          break;
+          case 1:
+            println("here");
+            level_2 = new MaterialLevel();
+            break;
+          }
         }
       }
     }
+    else
+    {
+      if (level_1 != null)
+      {
+        level_1.Update();
+      }
+
+      if (level_2 != null)
+      {
+        level_2.Update();
+      }
+    }
+    
+    Input.SetMousePrev();
   }
 
   void Draw()
@@ -55,8 +73,7 @@ class GSPlay
       {
         b.Draw();
       }
-    }
-    else
+    } else
     {
 
       gui.Draw();
@@ -64,6 +81,11 @@ class GSPlay
       if (level_1 != null)
       {
         level_1.Draw();
+      }
+
+      if (level_2 != null)
+      {
+        level_2.Draw();
       }
     }
   }

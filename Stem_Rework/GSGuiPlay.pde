@@ -62,7 +62,7 @@ class GSGuiPlay
           break;
 
         case 1:
-          SwitchToPlay();
+          //SwitchToPlay();
           break;
 
         case 2:
