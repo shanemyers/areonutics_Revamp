@@ -11,22 +11,27 @@ class Button
   float originX;
   float originY;
 
-  String text;
+  //String text;
   boolean isMouseOver = false;
-  float clrR;
-  float clrG; 
-  float clrB;
+  float scaleY;
+  float scaleX;
   int type;
 
   float h;
   float w;
 
   boolean dragging = false;
+  boolean prevDragging = false;
   boolean draggable = false;
   boolean inPosition = false;
+  boolean active = true;
+
+  int targetID = -1;
+
+  PImage img;
 
   // initilizes a new button with position growth changes color and text
-  public Button(float x, float y, float sizeX, float sizeY, float clrR, float clrG, float clrB, int type, boolean drag, String text)
+  public Button(float x, float y, float sizeX, float sizeY, float scaleX, float scaleY, int type, boolean drag, PImage img)
   {
     this.x = x;
     this.y = y;
@@ -37,17 +42,18 @@ class Button
     this.sizeX = sizeX;
     this.sizeY = sizeY;
 
-    this.clrR =  clrR;
-    this.clrG =    clrG;
-    this.clrB =   clrB;
+    this.scaleX = scaleX;
+    this.scaleY = scaleY;
 
-    this.text = text;
+    //this.text = text;
     this.type = type;
 
     this.w = sizeX / 2;
     this.h = sizeY / 2;
 
     this.draggable = drag;
+
+    this.img = img;
   }
 
   // draws the button to the screen
@@ -56,50 +62,60 @@ class Button
   {
     noStroke();
     textAlign(CENTER);
-    
-    
+
+    /*
     if (draggable)
-    {
-      pushMatrix();
-
-
-
-      if (type == 0)
-      {
-        translate(x, y);
-        
-        scale(.1);
-        image(resist, 0, 0);
-      }
-      else
-      {
-        translate(x, y);
-        scale(.1);
-        image(volt, 0, 0);
-      }
-
-      popMatrix();
-    }
+     {
+     pushMatrix();
+     
+     if (type == 0)
+     {
+     translate(x, y);
+     
+     scale(.1);
+     image(resist, 0, 0);
+     }
+     else
+     {
+     translate(x, y);
+     scale(.1);
+     image(volt, 0, 0);
+     }
+     
+     popMatrix();
+     }
+     */
+    
+    pushMatrix();
+    
+    translate(x, y);
+    
+    scale(scaleX, scaleY);
     
     if (!isMouseOver)
     {
-      fill(clrR, clrG, clrB);
-      
-      //fill(0);
-      //textSize(20); 
-      text(text, this.x, this.y + (this.sizeY / 6));
+      tint(255,255,255, 255);
     }
     else
     {
-      fill(0, 0, 100, 50);
-
-      //fill(255);
-      //textSize(20); 
-      text(text, this.x, this.y + (this.sizeY / 6));
+      tint(255,255,255, 100);
     }
-    rect(this.x, this.y, this.sizeX, this.sizeY);
     
-    ellipse(x,y, 8,8);
+    if(!active)
+    {
+      tint(123, 123, 123, 255);
+    }
+    
+    if (img != null)
+    {
+      image(img, 0, 0);
+    }
+    
+    popMatrix();
+    
+    //rect(this.x, this.y, 4, 4);
+  
+    //ellipse(x, y, 8, 8);
   }
 
   // checks for if the mouse is over this button
@@ -125,11 +141,16 @@ class Button
     this.x = mouseX;
     this.y = mouseY;
   }
-  
+
   void DragObject(float x, float y)
   {
     this.x = x;
     this.y = y;
+  }
+
+  void setPrevDrag()
+  {
+    prevDragging = dragging;
   }
 }
 
